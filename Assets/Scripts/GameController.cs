@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using System.Linq;
 
 public enum ColorType
 {
@@ -110,7 +109,7 @@ public class GameController : MonoBehaviour
 			p.isPushed = true;
 
 			player.pushedPanel (p);
-						
+
 			Enemy enemy = enemyManager.getEnemy (p.type);
 			InputStatus st = enemy.equals (player.pushingString);
 			switch (st) {
