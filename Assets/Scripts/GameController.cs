@@ -58,15 +58,12 @@ public class GameController : MonoBehaviour
 	
 	void OnGUI ()
 	{
-		for (int x = 0; x < buttonLenX; x++) {
-			for (int y = 0; y < buttonLenY; y++) {
-				Panel p = panels [x, y]; 
-				Rect rect = p.position;
-				string str = p.char_;
-				GUIStyle style = getGUIStyleWithType (p.type);
-				if (!p.isPushed && GUI.Button (rect, str, style)) {
-					pushPanel (p);
-				}
+		foreach (Panel p in panels) {
+			Rect rect = p.position;
+			string str = p.char_;
+			GUIStyle style = getGUIStyleWithType (p.type);
+			if (!p.isPushed && GUI.Button (rect, str, style)) {
+				pushPanel (p);
 			}
 		}
 		
@@ -84,15 +81,12 @@ public class GameController : MonoBehaviour
 		Panel[,] shufflesPanels = this.shuffledPanels ();
 		int wordLength = word.Length;
 		int count = 0;
-		
-		for (int x = 0; x < buttonLenX; x++) {
-			for (int y = 0; y < buttonLenY; y++) {
-				Panel p = shufflesPanels [x, y];
-				if (p.char_ == null && count < wordLength) {
-					string ch = word.Substring (count, 1);
-					p.putChar (ch, type);
-					count ++;
-				}
+
+		foreach (Panel p in shufflesPanels) {
+			if (p.char_ == null && count < wordLength) {
+				string ch = word.Substring (count, 1);
+				p.putChar (ch, type);
+				count ++;
 			}
 		}
 	}
