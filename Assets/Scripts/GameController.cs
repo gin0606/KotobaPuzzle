@@ -106,9 +106,7 @@ public class GameController : MonoBehaviour
 	
 	void pushPanel (Panel p)
 	{
-		if (p.type != ColorType.nullColor
-						&& (player.pushingColor == ColorType.nullColor
-						|| player.pushingColor == p.type)) {
+		if (canPanelPush (p)) {
 			p.isPushed = true;
 
 			player.pushedPanel (p);
@@ -130,6 +128,13 @@ public class GameController : MonoBehaviour
 		} else {
 			failInput ();
 		}
+	}
+	
+	bool canPanelPush (Panel p)
+	{
+		return p.type != ColorType.nullColor
+			&& (player.pushingColor == ColorType.nullColor
+				|| player.pushingColor == p.type);
 	}
 
 	void erasePanels (ColorType type)
