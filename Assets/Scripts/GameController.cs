@@ -26,8 +26,6 @@ public class GameController : MonoBehaviour
 	WordManager wordManager;
 	Player player;
 	EnemyManager enemyManager;
-	int buttonLenX = 3;
-	int buttonLenY = 5;
 	Panel[,] panels;
 
 	void Start ()
@@ -37,6 +35,8 @@ public class GameController : MonoBehaviour
 		player = new Player ();
 		enemyManager = new EnemyManager ();
 
+		int buttonLenX = 3;
+		int buttonLenY = 5;
 		panels = new Panel[buttonLenX, buttonLenY];
 		
 		float buttonSize = 50;
@@ -50,7 +50,7 @@ public class GameController : MonoBehaviour
 			buttonRect.x = 0;
 			buttonRect.y += buttonSize + 1;
 		}
-		
+				
 		addWord (wordManager.getWord (), ColorType.red);
 		addWord (wordManager.getWord (), ColorType.blue);
 		addWord (wordManager.getWord (), ColorType.green);
@@ -176,7 +176,9 @@ public class GameController : MonoBehaviour
 	Panel[,] shuffledPanels ()
 	{
 		Panel[,] dstPanels = panels;
-		int pLength = buttonLenX * buttonLenY;
+		int len_x = dstPanels.GetLength (0);
+		int len_y = dstPanels.GetLength (1);
+		int pLength = len_x * len_y;
 
 		for (int i = 0; i < pLength; i++) {
 			int r = Random.Range (0, pLength);
@@ -194,13 +196,15 @@ public class GameController : MonoBehaviour
 	
 	int twoDimensionToOne (int x, int y)
 	{
-		return (x * buttonLenY + y);
+		int len_y = panels.GetLength (1);
+		return (x * len_y + y);
 	}
 
 	int[] oneDimensionToTwo (int i)
 	{
-		int x = i / buttonLenY;
-		int y = i % buttonLenY;
+		int len_y = panels.GetLength (1);
+		int x = i / len_y;
+		int y = i % len_y;
 		return new int[]{x, y};
 	}
 }
