@@ -16,7 +16,7 @@ public class EnemyManager
 		nullEnemy = new Enemy ();
 	}
 		
-	public Enemy getEnemy (ColorType type)
+	public Enemy GetEnemy (ColorType type)
 	{
 		Enemy ret = null;
 		switch (type) {
@@ -36,15 +36,15 @@ public class EnemyManager
 		return ret;
 	}
 	
-	public void setEnemyWord (string word, ColorType type)
+	public void SetEnemyWord (string word, ColorType type)
 	{
-		Enemy enemy = this.getEnemy (type);	
+		Enemy enemy = this.GetEnemy (type);	
 		enemy.word = word;
 	}
 	
-	public string getEnemyWord (ColorType type)
+	public string GetEnemyWord (ColorType type)
 	{
-		Enemy enemy = this.getEnemy (type);	
+		Enemy enemy = this.GetEnemy (type);	
 		return enemy.word;
 	}
 }

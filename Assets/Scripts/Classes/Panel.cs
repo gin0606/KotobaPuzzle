@@ -10,17 +10,17 @@ public class Panel
 	
 	public Panel ()
 	{
-		initPanel ();		
+		InitPanel ();		
 	}
 	
-	public void initPanel ()
+	public void InitPanel ()
 	{
 		this.char_ = null;
 		this.isPushed = false;
 		this.type = ColorType.nullColor;
 	}
 	
-	public void putChar (string ch, ColorType color)
+	public void PutChar (string ch, ColorType color)
 	{
 		this.char_ = ch;
 		this.type = color;

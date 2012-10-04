@@ -50,9 +50,9 @@ public class GameController : MonoBehaviour
 			buttonRect.y += buttonSize + 1;
 		}
 				
-		addWord (wordManager.getWord (), ColorType.red);
-		addWord (wordManager.getWord (), ColorType.blue);
-		addWord (wordManager.getWord (), ColorType.green);
+		AddWord (wordManager.GetWord (), ColorType.red);
+		AddWord (wordManager.GetWord (), ColorType.blue);
+		AddWord (wordManager.GetWord (), ColorType.green);
 	}
 	
 	void OnGUI ()
@@ -60,99 +60,99 @@ public class GameController : MonoBehaviour
 		foreach (Panel p in panels) {
 			Rect rect = p.position;
 			string str = p.char_;
-			GUIStyle style = getGUIStyleWithType (p.type);
+			GUIStyle style = GetGUIStyleWithType (p.type);
 			if (!p.isPushed && GUI.Button (rect, str, style)) {
-				pushPanel (p);
+				PushPanel (p);
 			}
 		}
 		
 		GUI.Label (new Rect (51, 149, 254, 50), player.pushingString, nullGUIStyle);
 		
-		GUI.Label (new Rect (0, 0, 150, 50), enemyManager.getEnemyWord (ColorType.red), redGUIStyle);
-		GUI.Label (new Rect (150, 0, 150, 50), enemyManager.getEnemyWord (ColorType.blue), blueGUIStyle);
-		GUI.Label (new Rect (300, 0, 150, 50), enemyManager.getEnemyWord (ColorType.green), greenGUIStyle);
+		GUI.Label (new Rect (0, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.red), redGUIStyle);
+		GUI.Label (new Rect (150, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.blue), blueGUIStyle);
+		GUI.Label (new Rect (300, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.green), greenGUIStyle);
 	}
 	
-	void addWord (string word, ColorType type)
+	void AddWord (string word, ColorType type)
 	{
-		enemyManager.setEnemyWord (word, type);
+		enemyManager.SetEnemyWord (word, type);
 		
-		Panel[,] shufflesPanels = this.shuffledPanels ();
+		Panel[,] shufflesPanels = this.ShuffledPanels ();
 		int wordLength = word.Length;
 		int count = 0;
 
 		foreach (Panel p in shufflesPanels) {
 			if (p.char_ == null && count < wordLength) {
 				string ch = word.Substring (count, 1);
-				p.putChar (ch, type);
+				p.PutChar (ch, type);
 				count ++;
 			}
 		}
 	}
 	
-	void succeedInput (ColorType type)
+	void SucceedInput (ColorType type)
 	{
-		player.initInputStatus ();
-		erasePanels (type);
-		addWord (wordManager.getWord (), type);
+		player.InitInputStatus ();
+		ErasePanels (type);
+		AddWord (wordManager.GetWord (), type);
 	}
 	
-	void failInput ()
+	void FailInput ()
 	{
-		restorePanels ();
-		player.initInputStatus ();
+		RestorePanels ();
+		player.InitInputStatus ();
 	}
 	
-	void pushPanel (Panel p)
+	void PushPanel (Panel p)
 	{
-		if (canPanelPush (p)) {
+		if (CanPanelPush (p)) {
 			p.isPushed = true;
 
-			player.pushedPanel (p);
+			player.PushedPanel (p);
 
-			Enemy enemy = enemyManager.getEnemy (p.type);
-			InputStatus st = enemy.equals (player.pushingString);
+			Enemy enemy = enemyManager.GetEnemy (p.type);
+			InputStatus st = enemy.Equals (player.pushingString);
 			switch (st) {
 			case InputStatus.complete:
-				succeedInput (p.type);
+				SucceedInput (p.type);
 				break;
 			case InputStatus.incomplete:
 				break;
 			case InputStatus.feiled:
-				failInput ();
+				FailInput ();
 				break;
 			default:
 				break;
 			}
 		} else {
-			failInput ();
+			FailInput ();
 		}
 	}
 	
-	bool canPanelPush (Panel p)
+	bool CanPanelPush (Panel p)
 	{
 		return p.type != ColorType.nullColor
 			&& (player.pushingColor == ColorType.nullColor
 				|| player.pushingColor == p.type);
 	}
 
-	void erasePanels (ColorType type)
+	void ErasePanels (ColorType type)
 	{
 		foreach (Panel p in panels) {
 			if (p.type == type) {
-				p.initPanel ();
+				p.InitPanel ();
 			}
 		}
 	}
 	
-	void restorePanels ()
+	void RestorePanels ()
 	{
 		foreach (Panel p in panels) {
 			p.isPushed = false;
 		}
 	}
 	
-	GUIStyle getGUIStyleWithType (ColorType type)
+	GUIStyle GetGUIStyleWithType (ColorType type)
 	{
 		GUIStyle ret = null;
 		switch (type) {
@@ -172,7 +172,7 @@ public class GameController : MonoBehaviour
 		return ret;
 	}
 		
-	Panel[,] shuffledPanels ()
+	Panel[,] ShuffledPanels ()
 	{
 		Panel[,] dstPanels = panels;
 		int len_x = dstPanels.GetLength (0);
@@ -182,8 +182,8 @@ public class GameController : MonoBehaviour
 		for (int i = 0; i < pLength; i++) {
 			int r = Random.Range (0, pLength);
 			
-			int[] srcIndex = oneDimensionToTwo (r);
-			int[] dstIndex = oneDimensionToTwo (i);
+			int[] srcIndex = OneDimensionToTwo (r);
+			int[] dstIndex = OneDimensionToTwo (i);
 			
 			Panel temp = dstPanels [dstIndex [0], dstIndex [1]];
 			dstPanels [dstIndex [0], dstIndex [1]] = dstPanels [srcIndex [0], srcIndex [1]];
@@ -193,13 +193,13 @@ public class GameController : MonoBehaviour
 		return dstPanels;
 	}
 	
-	int twoDimensionToOne (int x, int y)
+	int TwoDimensionToOne (int x, int y)
 	{
 		int len_y = panels.GetLength (1);
 		return (x * len_y + y);
 	}
 
-	int[] oneDimensionToTwo (int i)
+	int[] OneDimensionToTwo (int i)
 	{
 		int len_y = panels.GetLength (1);
 		int x = i / len_y;

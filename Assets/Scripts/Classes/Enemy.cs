@@ -31,12 +31,12 @@ public class Enemy
 		this.type = type;
 	}
 	
-	public InputStatus equals (string str)
+	public InputStatus Equals (string str)
 	{
 		if (word.Equals (str)) {
 			return InputStatus.complete;
 		} else {
-			if (compareToMiddle (str) == str.Length) {
+			if (CompareToMiddle (str) == str.Length) {
 				return InputStatus.incomplete;
 			} else {
 				return InputStatus.feiled;
@@ -44,7 +44,7 @@ public class Enemy
 		}
 	}
 	
-	private int compareToMiddle (string str)
+	private int CompareToMiddle (string str)
 	{
 		if (str.Length > word.Length) {
 			return -1;

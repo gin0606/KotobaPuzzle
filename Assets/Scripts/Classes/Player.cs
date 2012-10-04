@@ -8,16 +8,16 @@ public class Player
 	
 	public Player ()
 	{
-		initInputStatus ();
+		InitInputStatus ();
 	}
 	
-	public void initInputStatus ()
+	public void InitInputStatus ()
 	{
 		pushingString = "";
 		pushingColor = ColorType.nullColor;
 	}
 	
-	public void pushedPanel (Panel p)
+	public void PushedPanel (Panel p)
 	{
 		this.pushingString += p.char_;
 		this.pushingColor = p.type;
