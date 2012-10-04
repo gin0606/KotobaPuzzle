@@ -33,7 +33,7 @@ public class Enemy
 	
 	public InputStatus Equals (string str)
 	{
-		if (word.Equals (str)) {
+		if (word == str) {
 			return InputStatus.complete;
 		} else {
 			if (CompareToMiddle (str) == str.Length) {
