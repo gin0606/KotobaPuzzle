@@ -16,18 +16,14 @@ public enum InputStatus
 	complete
 }
 
-public class GameController : MonoBehaviour
+public class GameController
 {
-	public GUIStyle redGUIStyle;
-	public GUIStyle blueGUIStyle;
-	public GUIStyle greenGUIStyle;
-	public GUIStyle nullGUIStyle;
 	WordManager wordManager;
-	Player player;
-	EnemyManager enemyManager;
-	Panel[,] panels;
+	public Player player{get; private set;}
+	public EnemyManager enemyManager{get; private set;}
+	public Panel[,] panels{get; private set;}
 
-	void Start ()
+	public GameController ()
 	{
 		wordManager = new WordManager ();
 		
@@ -54,25 +50,7 @@ public class GameController : MonoBehaviour
 		AddWord (wordManager.GetWord (), ColorType.blue);
 		AddWord (wordManager.GetWord (), ColorType.green);
 	}
-	
-	void OnGUI ()
-	{
-		foreach (Panel p in panels) {
-			Rect rect = p.position;
-			string str = p.char_;
-			GUIStyle style = GetGUIStyleWithType (p.type);
-			if (!p.isPushed && GUI.Button (rect, str, style)) {
-				PushPanel (p);
-			}
-		}
 		
-		GUI.Label (new Rect (51, 149, 254, 50), player.pushingString, nullGUIStyle);
-		
-		GUI.Label (new Rect (0, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.red), redGUIStyle);
-		GUI.Label (new Rect (150, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.blue), blueGUIStyle);
-		GUI.Label (new Rect (300, 0, 150, 50), enemyManager.GetEnemyWord (ColorType.green), greenGUIStyle);
-	}
-	
 	void AddWord (string word, ColorType type)
 	{
 		enemyManager.SetEnemyWord (word, type);
@@ -103,7 +81,7 @@ public class GameController : MonoBehaviour
 		player.InitInputStatus ();
 	}
 	
-	void PushPanel (Panel p)
+	public void PushPanel (Panel p)
 	{
 		if (CanPanelPush (p)) {
 			p.isPushed = true;
@@ -151,27 +129,7 @@ public class GameController : MonoBehaviour
 			p.isPushed = false;
 		}
 	}
-	
-	GUIStyle GetGUIStyleWithType (ColorType type)
-	{
-		GUIStyle ret = null;
-		switch (type) {
-		case ColorType.blue:
-			ret = blueGUIStyle;
-			break;
-		case ColorType.green:
-			ret = greenGUIStyle;
-			break;
-		case ColorType.red:
-			ret = redGUIStyle;
-			break;
-		case ColorType.nullColor:
-			ret = nullGUIStyle;
-			break;
-		}
-		return ret;
-	}
-		
+			
 	Panel[,] ShuffledPanels ()
 	{
 		Panel[,] dstPanels = panels;
