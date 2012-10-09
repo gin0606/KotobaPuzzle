@@ -39,7 +39,7 @@ public class Enemy
 			if (CompareToMiddle (str) == str.Length) {
 				return InputStatus.incomplete;
 			} else {
-				return InputStatus.feiled;
+				return InputStatus.failed;
 			}
 		}
 	}

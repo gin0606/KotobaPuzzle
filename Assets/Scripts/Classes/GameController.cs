@@ -11,7 +11,7 @@ public enum ColorType
 
 public enum InputStatus
 {
-	feiled,
+	failed,
 	incomplete,
 	complete
 }
@@ -69,7 +69,7 @@ public class GameController
 				break;
 			case InputStatus.incomplete:
 				break;
-			case InputStatus.feiled:
+			case InputStatus.failed:
 				FailInput ();
 				break;
 			default:
