@@ -51,6 +51,32 @@ public class GameController
 		AddWord (wordManager.GetWord (), ColorType.green);
 	}
 		
+	public void PushPanel (Panel p)
+	{
+		if (CanPanelPush (p)) {
+			p.isPushed = true;
+
+			player.PushedPanel (p);
+
+			Enemy enemy = enemyManager.GetEnemy (p.type);
+			InputStatus st = enemy.Equals (player.pushingString);
+			switch (st) {
+			case InputStatus.complete:
+				SucceedInput (p.type);
+				break;
+			case InputStatus.incomplete:
+				break;
+			case InputStatus.feiled:
+				FailInput ();
+				break;
+			default:
+				break;
+			}
+		} else {
+			FailInput ();
+		}
+	}
+	
 	void AddWord (string word, ColorType type)
 	{
 		enemyManager.SetEnemyWord (word, type);
@@ -79,32 +105,6 @@ public class GameController
 	{
 		RestorePanels ();
 		player.InitInputStatus ();
-	}
-	
-	public void PushPanel (Panel p)
-	{
-		if (CanPanelPush (p)) {
-			p.isPushed = true;
-
-			player.PushedPanel (p);
-
-			Enemy enemy = enemyManager.GetEnemy (p.type);
-			InputStatus st = enemy.Equals (player.pushingString);
-			switch (st) {
-			case InputStatus.complete:
-				SucceedInput (p.type);
-				break;
-			case InputStatus.incomplete:
-				break;
-			case InputStatus.feiled:
-				FailInput ();
-				break;
-			default:
-				break;
-			}
-		} else {
-			FailInput ();
-		}
 	}
 	
 	bool CanPanelPush (Panel p)
