@@ -19,9 +19,12 @@ public enum InputStatus
 public class GameController
 {
 	WordManager wordManager;
-	public Player player{get; private set;}
-	public EnemyManager enemyManager{get; private set;}
-	public Panel[,] panels{get; private set;}
+
+	public Player player{ get; private set; }
+
+	public EnemyManager enemyManager{ get; private set; }
+
+	public Panel[,] panels{ get; private set; }
 
 	public GameController ()
 	{

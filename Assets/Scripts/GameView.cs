@@ -1,19 +1,21 @@
 using UnityEngine;
 using System.Collections;
 
-public class GameView : MonoBehaviour {
+public class GameView : MonoBehaviour
+{
 	public GUIStyle redGUIStyle;
 	public GUIStyle blueGUIStyle;
 	public GUIStyle greenGUIStyle;
 	public GUIStyle nullGUIStyle;
-
 	GameController gameController;
 	
-	void Start () {
-		gameController = new GameController();
+	void Start ()
+	{
+		gameController = new GameController ();
 	}
 	
-	void OnGUI(){
+	void OnGUI ()
+	{
 		Panel[,] panels = gameController.panels;
 		foreach (Panel p in panels) {
 			Rect rect = p.position;
