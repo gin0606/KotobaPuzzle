@@ -1,0 +1,10 @@
+fileFormatVersion: 2
+guid: 1801e7241dd444ef3831714bce702627
+MonoImporter:
+  serializedVersion: 2
+  defaultReferences:
+  - redTexture: {instanceID: 0}
+  - blueTexture: {instanceID: 0}
+  - greenTexture: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
